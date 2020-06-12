@@ -17,16 +17,16 @@ export const fetchCollectionsFailure = errorMessage => ({
 });
 
 export const fetchCollectionsStartAsync = () => {
-  return dispatch => {
-    const collectionRef = firestore.collection('collections');
-    dispatch(fetchCollectionsStart());
-    collectionRef
-      .get()
-      .then(snapshop => {
-        const collectionsMap = convertCollectionSnapshopToMap(snapshop);
-        dispatch(fetchCollectionsSuccess(collectionsMap))
-      // this.setState({ loading: false });
-      })
-      .catch(err => dispatch(fetchCollectionsFailure(err)));
-  };
+  // return dispatch => {
+  //   const collectionRef = firestore.collection('collections');
+  //   dispatch(fetchCollectionsStart());
+  //   collectionRef
+  //     .get()
+  //     .then(snapshop => {
+  //       const collectionsMap = convertCollectionSnapshopToMap(snapshop);
+  //       dispatch(fetchCollectionsSuccess(collectionsMap))
+  //     // this.setState({ loading: false });
+  //     })
+  //     .catch(err => dispatch(fetchCollectionsFailure(err)));
+  // };
 };
