@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "test-miele-shyftbase-fu": {
+      "hosting": {
+        "crwn-clyne": [
+          "test-miele-shyftbase-fu.web.app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "test-miele-shyftbase-fu"
+  }
+}

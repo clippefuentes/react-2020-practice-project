@@ -9,13 +9,34 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+stages:
+- stage: Install_AND_Test_Node
+  displayName: Install & Test Node 
+  jobs:
+  - job: Test_Client
+    steps: 
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: Test Client
+    - script: npm i 
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- stage: Deploy
+  displayName: "Deploy"
+  dependsOn: Install_AND_Test_Node
+  condition: succeeded()
+  jobs:
+  - job: Deploy_Hosting
+    steps: 
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: "Deploy Hosting: crwn-clyne" 
+    
+    - script: |
+        npm install
+        npm run build
+        npm install -g firebase-tools
+        firebase target:apply hosting crwn-clyne crwn-clyne
+        firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only hosting:crwn-clyne
+        
