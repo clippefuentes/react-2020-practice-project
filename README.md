@@ -1,4 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Build Status](https://dev.azure.com/clippefuentes/test-project-react/_apis/build/status/clippefuentes.react-2020-practice-project?branchName=master)](https://dev.azure.com/clippefuentes/test-project-react/_build/latest?definitionId=1&branchName=master)
 
 ## Available Scripts
 
