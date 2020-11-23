@@ -23,6 +23,7 @@ const App = ({ checkUserSession, currentUser }) => {
     checkUserSession();
   }, [checkUserSession ]);
 
+//
   return (
     <div>
       <Header />
