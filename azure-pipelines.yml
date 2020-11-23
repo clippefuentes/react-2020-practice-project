@@ -23,7 +23,20 @@ stages:
       inputs:
         versionSpec: '10.x'
       displayName: Test Client
-    - script: npm i 
+    - script: npm i
+  - job: ChosePipelines
+    displayName: 'ChosePipelines'
+    steps:
+    - bash: |
+        CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
+        for FILE in $CHANGED_FILES
+          do
+            if [[ $FILE == *src/* ]]; then
+              echo "MATCH:  ${FILE} changed"
+              echo "##vso[task.setvariable variable=src;isOutput=true]src"
+            fi
+          done
+      name: setvarStep
 
 - stage: Deploy
   displayName: "Deploy"
@@ -31,12 +44,14 @@ stages:
   condition: succeeded()
   jobs:
   - job: Deploy_Hosting
+    variables:
+      textVar: $[ stageDependencies.Install_AND_Test_Node.ChosePipelines.outputs['setvarStep.src'] ]
+    condition: eq(variables.textVar, 'src') #map doThing and check the value
     steps: 
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
       displayName: "Deploy Hosting: crwn-clyne" 
-    
     - script: |
         npm install
         npm run build
