@@ -31,7 +31,7 @@ stages:
         CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
         for FILE in $CHANGED_FILES
           do
-            if [[ $FILE == *src/* ]]; then
+            if [[ $FILE == src/* ]]; then
               echo "MATCH:  ${FILE} changed"
               echo "##vso[task.setvariable variable=src;isOutput=true]src"
             fi
