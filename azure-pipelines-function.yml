@@ -86,3 +86,73 @@ stages:
       condition: succeeded() 
       steps:
       - script: echo "Build Stage on FUNCTION_1 is done"
+
+  # FUNCTION_2
+  - stage: Build_and_Deploy_Prod_FUNCTION_2
+    dependsOn: Initialization_and_Test
+    condition: succeeded()
+    displayName: FUNCTION_2 - Production
+    jobs:
+    - job: Build_FUNCTION_2
+      variables:
+        textVar: $[ stageDependencies.Initialization_and_Test.ChosePipelines.outputs['setvarStep.FUNCTION_2'] ]
+      condition: eq(variables.textVar, 'FUNCTION_2') #map doThing and check the value
+      steps:
+      - script: echo "running FUNCTION_2"
+      - script: dir
+        workingDirectory: functions/src/FUNCTION_2
+        displayName: List contents of a folder of the FUNCTION_2
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '10.x'
+        displayName: 'Build NPM'
+      - script: |
+          npm install
+          npm install -g firebase-tools
+          npm run build
+        workingDirectory: functions/src
+        displayName: 'Installation and Build FUNCTION_2'
+      - script: |
+          firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only function:FUNCTION_2-testFunction2
+        workingDirectory: functions/src
+        displayName: 'Installation and Build FUNCTION_2-testFunction2'     
+    - job: Done_FUNCTION_2
+      dependsOn: Build_FUNCTION_2
+      condition: succeeded() 
+      steps:
+      - script: echo "Build Stage on FUNCTION_2 is done"
+
+  # FUNCTION_3
+  - stage: Build_and_Deploy_Prod_FUNCTION_3
+    dependsOn: Initialization_and_Test
+    condition: succeeded()
+    displayName: FUNCTION_3 - Production
+    jobs:
+    - job: Build_FUNCTION_3
+      variables:
+        textVar: $[ stageDependencies.Initialization_and_Test.ChosePipelines.outputs['setvarStep.FUNCTION_3'] ]
+      condition: eq(variables.textVar, 'FUNCTION_3') #map doThing and check the value
+      steps:
+      - script: echo "running FUNCTION_3"
+      - script: dir
+        workingDirectory: functions/src/FUNCTION_3
+        displayName: List contents of a folder of the FUNCTION_3
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '10.x'
+        displayName: 'Build NPM'
+      - script: |
+          npm install
+          npm install -g firebase-tools
+          npm run build
+        workingDirectory: functions/src
+        displayName: 'Installation and Build FUNCTION_3'
+      - script: |
+          firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only function:FUNCTION_3-invokeFunction3
+        workingDirectory: functions/src
+        displayName: 'Installation and Build FUNCTION_3-invokeFunction3'     
+    - job: Done_FUNCTION_3
+      dependsOn: Build_FUNCTION_3
+      condition: succeeded() 
+      steps:
+      - script: echo "Build Stage on FUNCTION_3 is done"
