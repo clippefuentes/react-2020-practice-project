@@ -5,7 +5,9 @@
 
 trigger:
 - master
-
+paths:
+  include:
+  - src/*
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -39,4 +41,6 @@ stages:
         npm install -g firebase-tools
         firebase target:apply hosting crwn-clyne crwn-clyne
         firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only hosting:crwn-clyne
+
+
         
