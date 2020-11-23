@@ -78,7 +78,7 @@ stages:
         workingDirectory: functions/src
         displayName: 'Installation and Build FUNCTION_1'
       - script: |
-          firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only function:FUNCTION_1-runFunction1
+          firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only functions:FUNCTION_1-runFunction1
         workingDirectory: functions/src
         displayName: 'Installation and Build FUNCTION_1-runFunction1'     
     - job: Done_FUNCTION_1
@@ -113,7 +113,7 @@ stages:
         workingDirectory: functions/src
         displayName: 'Installation and Build FUNCTION_2'
       - script: |
-          firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only function:FUNCTION_2-testFunction2
+          firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only functions:FUNCTION_2-testFunction2
         workingDirectory: functions/src
         displayName: 'Installation and Build FUNCTION_2-testFunction2'     
     - job: Done_FUNCTION_2
@@ -148,7 +148,7 @@ stages:
         workingDirectory: functions/src
         displayName: 'Installation and Build FUNCTION_3'
       - script: |
-          firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only function:FUNCTION_3-invokeFunction3
+          firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only functions:FUNCTION_3-invokeFunction3
         workingDirectory: functions/src
         displayName: 'Installation and Build FUNCTION_3-invokeFunction3'     
     - job: Done_FUNCTION_3
