@@ -80,7 +80,11 @@ stages:
       - script: |
           firebase deploy --token $(FIREBASE_TOKEN) --project $(FB_PROJECT) --only functions:FUNCTION_1-runFunction1
         workingDirectory: functions/src
-        displayName: 'Installation and Build FUNCTION_1-runFunction1'     
+        displayName: 'Installation and Build FUNCTION_1-runFunction1'   
+      - script: |
+           firebase functions:config:get
+        workingDirectory: functions/src
+        displayName: 'Get functions config'     
     - job: Done_FUNCTION_1
       dependsOn: Build_FUNCTION_1
       condition: succeeded() 
