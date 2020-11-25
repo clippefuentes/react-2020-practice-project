@@ -82,7 +82,7 @@ stages:
         workingDirectory: functions/src
         displayName: 'Installation and Build FUNCTION_1-runFunction1'   
       - script: |
-           firebase functions:config:get
+           firebase functions:config:get --token $(FIREBASE_TOKEN)
         workingDirectory: functions/src
         displayName: 'Get functions config'     
     - job: Done_FUNCTION_1
